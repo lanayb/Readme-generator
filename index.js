@@ -1,12 +1,14 @@
+/*jshint esversion: 6 */
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+// const path = require('path');
 const generateMarkdown = require('./generateMarkdown');
 
 
 // TODO: Create an array of questions for user input
- const questions =[
-     {
+const questions = [
+    {
         type: 'input',
         name: 'Title',
         message: 'What is the title of your readme?',
@@ -18,13 +20,13 @@ const generateMarkdown = require('./generateMarkdown');
     },
     {
         type: 'input',
-        name: 'Installation Instructions',
+        name: 'InstallationInstructions',
         message: 'What are the installation instrutions?',
     },
     {
         type: 'input',
-        name: 'Usage Information',
-        message: 'What is the usage information?'
+        name: 'Usage',
+        message: 'What information about the repo, should the user know?'
     },
     {
         type: 'input',
@@ -36,10 +38,10 @@ const generateMarkdown = require('./generateMarkdown');
         name: 'Email',
         message: 'What is your email?',
     }
-    ];
-
-
+];
+        
 // TODO: Create a function to write README file
+
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, generateMarkdown(data), (err) => {
         if(err) {
@@ -52,8 +54,12 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions).then(answers => writeToFile(answers));
+   inquirer.prompt(questions).then((answers) => {
+       console.log('GENERATING README..');
+       writeToFile('README.md', generateMarkdown({ answers }));
+   });
+
 }
 
-// Function call to initialize app
 init();
+// Function call to initialize app
