@@ -20,7 +20,7 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'InstallationInstructions',
+        name: 'Installation',
         message: 'What are the installation instrutions?',
     },
     {
